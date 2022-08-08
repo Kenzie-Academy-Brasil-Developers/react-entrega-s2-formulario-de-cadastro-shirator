@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  justify-content: center;
+  background: var(--grey-4);
+}
+
+.Toastify__toast {
+  background: #343b41;
+  color: #f8f9fa;
+}
