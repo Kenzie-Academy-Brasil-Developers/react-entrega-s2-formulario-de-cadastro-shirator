@@ -46,10 +46,12 @@ export const FormContainer = styled.div`
     border-radius: 4px;
     color: var(--grey-0);
     width: 100%;
-  }
+    transition: background 0.1s linear;
 
-  button:hover {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+      background: var(--grey-2);
+    }
   }
 
   color: var(--grey-0);
@@ -101,10 +103,13 @@ export const FormContainer = styled.div`
       border-radius: 4px;
       padding: 15px 22px;
       border: transparent;
-
       color: var(--grey-0);
-
       margin-bottom: 20px;
+      transition: background 0.1s linear;
+
+      &:hover {
+        background: var(--negative);
+      }
     }
   }
 `;

@@ -12,14 +12,16 @@ export const HomepageContainer = styled.div`
     border-bottom: 1px solid #868e96;
 
     button {
-      background: #212529;
+      background: var(--grey-3);
       padding: 10px 20px;
       border: transparent;
       border-radius: 4px;
       color: white;
+      transition: background 0.1s linear;
 
       &:hover {
         cursor: pointer;
+        background: var(--grey-2);
       }
     }
   }

@@ -8,7 +8,6 @@ import { creationError, creationSuccess } from "../../components/Toast";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
-import "./toast.css";
 
 const UserRegister = () => {
   const formSchema = yup.object().shape({
