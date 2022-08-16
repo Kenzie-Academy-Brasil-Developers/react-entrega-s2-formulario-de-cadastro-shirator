@@ -1,46 +1,45 @@
-import { HomepageContainer } from "./style.js";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import api from "../../services/api.js";
+import Technologies from "../../components/Technologies/index.jsx";
+import CreateNew from "../../components/Modal/CreateNew/index.jsx";
 import logo from "../../assets/Logo.svg";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { HomepageContainer } from "./style.js";
+import { UserContext } from "../../contexts/UserContext.js";
+import { useContext } from "react";
+import { BsPlusLg } from "react-icons/bs";
 
 const Homepage = () => {
-  const navigate = useHistory();
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    api
-      .get(`/users/${localStorage.getItem("@USERID")}`)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const { user, tech } = useContext(UserContext);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <HomepageContainer>
+      <CreateNew show={showModal} onClose={() => setShowModal(false)} />
       <header>
         <img src={logo} alt="logo" />
         <button
           onClick={() => {
-            localStorage.removeItem("@TOKEN");
-            localStorage.removeItem("@USERID");
-            navigate.push("/");
+            localStorage.clear();
           }}
         >
           Sair
         </button>
       </header>
-      <div>
-        <h3>Olá, {data.name}</h3>
-        <p>{data.course_module}</p>
+      <div className="user-data">
+        <h3>Olá, {user.name}</h3>
+        <p>{user.course_module}</p>
       </div>
-      <main>
-        <h3>Que pena! Estamos em desenvolvimento :(</h3>
-        <h3>
-          Nossa aplicação está em desenvolvimento, em breve teremos novidades
-        </h3>
-      </main>
+      <div>
+        <h3>Tecnologias</h3>
+        <button onClick={() => setShowModal(true)}>
+          <BsPlusLg />
+        </button>
+      </div>
+      <div className="techs">
+        {tech.map((elem) => {
+          return <Technologies elem={elem} key={elem.id} />;
+        })}
+      </div>
     </HomepageContainer>
   );
 };

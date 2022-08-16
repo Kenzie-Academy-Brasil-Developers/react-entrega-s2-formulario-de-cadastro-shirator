@@ -1,53 +1,19 @@
-import * as yup from "yup";
-import api from "../../services/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Header, Container, FormContainer } from "./style.js";
-import { useHistory } from "react-router-dom";
-import { creationError, creationSuccess } from "../../components/Toast";
-import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { loginFormSchema } from "../../validations/yup";
+import { useContext } from "react";
 import logo from "../../assets/Logo.svg";
+import { UserContext } from "../../contexts/UserContext";
 
-const UserLogin = ({ setLoggedIn }) => {
-  const formSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("You must use a valid email"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-        "Minimum 8 characters, at least 1 (A-Z) upper case, one (a-z) lower case , 1 (1-9) number and 1 (%-#-@) special character "
-      ),
-  });
-
+const UserLogin = () => {
+  const { loginFunction } = useContext(UserContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(formSchema) });
-
-  const navigate = useHistory();
-  const onSubmitFunction = (data) => {
-    api
-      .post("/sessions", data)
-      .then((res) => {
-        localStorage.setItem("@TOKEN", res.data.token);
-        localStorage.setItem("@USERID", res.data.user.id);
-        creationSuccess();
-        setTimeout(function () {
-          navigate.push("/homepage");
-        }, 4000);
-        setLoggedIn(true);
-        return res.data;
-      })
-      .catch(() => {
-        creationError();
-      });
-  };
+  } = useForm({ resolver: yupResolver(loginFormSchema) });
 
   return (
     <Container>
@@ -55,7 +21,7 @@ const UserLogin = ({ setLoggedIn }) => {
         <img src={logo} alt="logo" />
       </Header>
       <FormContainer>
-        <form onSubmit={handleSubmit(onSubmitFunction)}>
+        <form onSubmit={handleSubmit(loginFunction)}>
           <h3>Login</h3>
           <label>
             Email

@@ -1,8 +1,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
-  height: 100vh;
+  background: var(--grey-4);
 }
 
 code {
@@ -15,6 +14,7 @@ code {
   margin: 0;
   box-sizing: 0;
   font-family: "Inter", sans-serif;
+  box-sizing: border-box;
 }
 
 :root {

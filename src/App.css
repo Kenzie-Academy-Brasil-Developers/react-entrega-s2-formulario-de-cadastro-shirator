@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   background: var(--grey-4);
+  height: 100vh;
 }
 
 .Toastify__toast {
