@@ -1,7 +1,6 @@
 import Technologies from "../../components/Technologies/index.jsx";
 import CreateNew from "../../components/Modal/CreateNew/index.jsx";
 import logo from "../../assets/Logo.svg";
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { HomepageContainer } from "./style.js";
 import { UserContext } from "../../contexts/UserContext.js";

@@ -4,7 +4,7 @@ import { TechContext } from "../../contexts/TechContext";
 import { useContext } from "react";
 
 const Technologies = ({ elem }) => {
-  const { deleteTech, updateTech } = useContext(TechContext);
+  const { deleteTech } = useContext(TechContext);
 
   return (
     <Tech>
