@@ -49,10 +49,7 @@ export const FormContainer = styled.div`
   margin-bottom: 30px;
 
   @media screen and (max-width: 431px) {
-    width: 320px;
-  }
-  @media screen and (max-width: 431px) {
-    width: 260px;
+    width: 220px;
   }
 
   color: var(--grey-0);

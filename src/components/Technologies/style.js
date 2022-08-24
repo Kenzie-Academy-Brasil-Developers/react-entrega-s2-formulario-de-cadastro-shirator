@@ -23,13 +23,4 @@ export const Tech = styled.div`
       color: var(--grey-1);
     }
   }
-
-  @media screen and (max-width: 464px) {
-    button {
-      display: none;
-    }
-    p {
-      font-size: 0.8rem;
-    }
-  }
 `;

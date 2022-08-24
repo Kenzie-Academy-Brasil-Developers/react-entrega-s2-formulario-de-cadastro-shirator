@@ -36,11 +36,7 @@ export const FormContainer = styled.div`
   margin-bottom: 30px;
 
   @media screen and (max-width: 431px) {
-    width: 340px;
-  }
-
-  @media screen and (max-width: 366px) {
-    width: 100%;
+    width: 220px;
   }
 
   small {

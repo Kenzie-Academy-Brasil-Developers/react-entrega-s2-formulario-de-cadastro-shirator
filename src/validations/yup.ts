@@ -17,7 +17,7 @@ export const registerFormSchema = yup.object().shape({
     .string()
     .required("Confimation password is required")
     .oneOf([yup.ref("password")], "Passwords doesn't match"),
-  aboutMe: yup.string().required("About me is required"),
+  bio: yup.string().required("About me is required"),
   contact: yup
     .string()
     .required("Contact is required")

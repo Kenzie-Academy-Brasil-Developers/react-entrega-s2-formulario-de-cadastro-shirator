@@ -1,11 +1,16 @@
-import Technologies from "../../components/Technologies/index.jsx";
-import CreateNew from "../../components/Modal/CreateNew/index.jsx";
+import Technologies from "../../components/Technologies";
+import CreateNew from "../../components/Modal/CreateNew";
 import logo from "../../assets/Logo.svg";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { HomepageContainer } from "./style.js";
-import { UserContext } from "../../contexts/UserContext.js";
-import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { BsPlusLg } from "react-icons/bs";
+
+export interface IElem {
+  id: string;
+  title: string;
+  status: string;
+}
 
 const Homepage = () => {
   const { user, tech } = useContext(UserContext);
@@ -35,8 +40,15 @@ const Homepage = () => {
         </button>
       </div>
       <div className="techs">
-        {tech.map((elem) => {
-          return <Technologies elem={elem} key={elem.id} />;
+        {tech.map((elem: IElem) => {
+          return (
+            <Technologies
+              id={elem.id}
+              title={elem.title}
+              status={elem.status}
+              key={elem.id}
+            />
+          );
         })}
       </div>
     </HomepageContainer>

@@ -7,13 +7,23 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "../../assets/Logo.svg";
 
+export interface IFormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+
 const UserRegister = () => {
   const { registerFunction } = useContext(UserContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(registerFormSchema) });
+  } = useForm<IFormData>({ resolver: yupResolver(registerFormSchema) });
 
   return (
     <Container>
@@ -70,9 +80,9 @@ const UserRegister = () => {
             <input
               type="text"
               placeholder="Talk about yourself"
-              {...register("aboutMe")}
+              {...register("bio")}
             />
-            <p>{errors.aboutMe && errors.aboutMe.message}</p>
+            <p>{errors.bio && errors.bio.message}</p>
           </label>
           <label>
             Contact
@@ -85,7 +95,7 @@ const UserRegister = () => {
           </label>
           <label>
             Select module
-            <select id="module" {...register("modules")}>
+            <select id="course_module" {...register("course_module")}>
               <option disabled selected>
                 Selecione um módulo
               </option>

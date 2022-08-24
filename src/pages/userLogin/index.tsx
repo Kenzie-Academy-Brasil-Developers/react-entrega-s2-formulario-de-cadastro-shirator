@@ -7,13 +7,18 @@ import { useContext } from "react";
 import logo from "../../assets/Logo.svg";
 import { UserContext } from "../../contexts/UserContext";
 
+interface IFormData {
+  email: string;
+  password: string;
+}
+
 const UserLogin = () => {
   const { loginFunction } = useContext(UserContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(loginFormSchema) });
+  } = useForm<IFormData>({ resolver: yupResolver(loginFormSchema) });
 
   return (
     <Container>
@@ -21,7 +26,7 @@ const UserLogin = () => {
         <img src={logo} alt="logo" />
       </Header>
       <FormContainer>
-        <form onSubmit={handleSubmit(loginFunction)}>
+        <form onSubmit={handleSubmit(loginFunction as any)}>
           <h3>Login</h3>
           <label>
             Email

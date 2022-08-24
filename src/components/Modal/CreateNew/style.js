@@ -82,12 +82,4 @@ export const Modal = styled.div`
       }
     }
   }
-
-  @media screen and (max-width: 545px) {
-    width: 300px;
-  }
-
-  @media screen and (max-width: 415px) {
-    width: 230px;
-  }
 `;

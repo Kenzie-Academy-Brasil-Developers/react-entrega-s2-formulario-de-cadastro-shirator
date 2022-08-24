@@ -6,13 +6,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { TechContext } from "../../../contexts/TechContext";
 
-const CreateNew = (props) => {
+interface IFormData {
+  title: string;
+  status: string;
+}
+
+interface IProps {
+  onClose: () => void;
+  show: boolean;
+}
+
+const CreateNew = (props: IProps) => {
   const { createTech } = useContext(TechContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(techFormSchema) });
+  } = useForm<IFormData>({ resolver: yupResolver(techFormSchema) });
 
   if (!props.show) {
     return null;
@@ -27,7 +37,7 @@ const CreateNew = (props) => {
         </button>
       </div>
       <div>
-        <form onSubmit={handleSubmit(createTech)}>
+        <form onSubmit={handleSubmit(createTech as any)}>
           <label>
             Nome
             <input

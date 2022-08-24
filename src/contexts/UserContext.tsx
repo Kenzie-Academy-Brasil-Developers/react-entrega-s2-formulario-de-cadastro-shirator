@@ -1,36 +1,62 @@
-import { createContext } from "react";
+import { createContext, ReactNode, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import api from "../services/api";
 import { creationError, creationSuccess } from "../components/Toast";
-import { useState, useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
-export const UserContext = createContext({});
-export const UserProvider = ({ children }) => {
+interface IUserProvider {
+  children: ReactNode;
+}
+interface IRegisterData {
+  email: string;
+  password: string;
+  name: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+interface ILoginData {
+  email: string;
+  password: string;
+}
+interface IUserData {
+  id: string;
+  name: string;
+  email: string;
+  course_module: string;
+  bio: string;
+  contact: string;
+  created_at: Date;
+  updated_at: Date;
+  techs: string[];
+  works: string[];
+  avatar_url: string | null;
+}
+
+interface IElemProps {
+  id: string;
+  title: string;
+  status: string;
+}
+
+type UserContextType = {
+  registerFunction: (data: IRegisterData) => void;
+  loginFunction: (data: IRegisterData) => void;
+  user: IUserData;
+  tech: IElemProps[];
+};
+
+export const UserContext = createContext<UserContextType>(
+  {} as UserContextType
+);
+export const UserProvider = ({ children }: IUserProvider) => {
   const history = useHistory();
-  const [user, setUser] = useState([]);
-  const [tech, setTech] = useState([]);
+  const [user, setUser] = useState<IUserData>({} as IUserData);
+  const [tech, setTech] = useState<IElemProps[]>([]);
 
-  const registerFunction = (data) => {
-    const {
-      email,
-      password,
-      name,
-      aboutMe: bio,
-      contact,
-      modules: course_module,
-    } = data;
-
-    const objData = {
-      email: email,
-      password: password,
-      name: name,
-      bio: bio,
-      contact: contact,
-      course_module: course_module,
-    };
+  const registerFunction = (data: IRegisterData) => {
     api
-      .post("/users", objData)
+      .post("/users", data)
       .then((res) => {
         creationSuccess();
         setTimeout(function () {
@@ -43,7 +69,7 @@ export const UserProvider = ({ children }) => {
       });
   };
 
-  const loginFunction = (data) => {
+  const loginFunction = (data: ILoginData) => {
     api
       .post("/sessions", data)
       .then((res) => {
@@ -73,7 +99,7 @@ export const UserProvider = ({ children }) => {
           setTech(res.data.techs);
           setUser(res.data);
         })
-        .catch((err) => localStorage.clear());
+        .catch(() => localStorage.clear());
     } else {
       history.push("/");
     }
